@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AppService } from './app.service';
+import { SessionService } from './session.service';
 import { ethers } from "ethers";
 declare const window: any;
 
@@ -10,7 +10,7 @@ declare const window: any;
 })
 export class AppComponent {
   title = 'web3-angular-starter-kit';
-  constructor(public appService: AppService,) {
+  constructor(public sessionService: SessionService,) {
     this.init();
   }
   init() {
@@ -23,9 +23,9 @@ export class AppComponent {
     }
   }
   fetchSession() {
-    this.appService.getAccounts().then(() => {
+    this.sessionService.getAccounts().then(() => {
       console.log("fetching accounts ...");
-      this.appService.fetchCurrentUser(this.appService.accounts[0]);
+      this.sessionService.fetchCurrentUser(this.sessionService.accounts[0]);
     });
   }
   async connectWallet() {

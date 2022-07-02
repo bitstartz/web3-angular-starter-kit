@@ -9,7 +9,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
 @Injectable({
   providedIn: "root"
 })
-export class AppService {
+export class SessionService {
   accounts: string[] = [];
   currentUser: User = null;
   constructor() { }

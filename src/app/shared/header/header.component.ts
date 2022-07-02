@@ -1,4 +1,4 @@
-import { AppService } from './../../app.service';
+import { SessionService } from '../../session.service';
 import { Component, EventEmitter, Output } from "@angular/core";
 import { trim } from '../../utils';
 
@@ -11,7 +11,7 @@ export class HeaderComponent {
   public trim = trim;
   @Output() connectEvent = new EventEmitter<any>();
 
-  constructor(public appService: AppService) { }
+  constructor(public sessionService: SessionService) { }
 
   emitconnectEvent() {
     this.connectEvent.emit();
