@@ -1,6 +1,16 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand">Navbar</a>
-  <form class="form-inline">
+  <ng-container *ngIf="appService.currentUser;else button">
+    <div class="col">
+
+    </div>
+    <span> {{appService.currentUser.balance}} </span>
+    <i class="fas fa-wallet"></i>
+    <span> {{ trim(appService.currentUser.account,7) }}</span>
+    <img height="30" width="30" [src]="appService.currentUser.identicon">
+  </ng-container>
+  <ng-template #button>
     <button class="btn btn-outline-success my-2 my-sm-0" (click)="emitconnectEvent()">Connect</button>
-  </form>
+  </ng-template>
+
 </nav>

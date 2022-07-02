@@ -19,22 +19,21 @@ export class AppComponent {
     }
     else {
       console.log('Ethereum browser detected');
-      this.fetchDetails();
+      this.fetchSession();
     }
   }
-  fetchDetails() {
-    this.appService.getWalletDetails().then(() => {
-      console.log("fetching details ...");
+  fetchSession() {
+    this.appService.getAccounts().then(() => {
+      console.log("fetching accounts ...");
+      this.appService.fetchCurrentUser(this.appService.accounts[0]);
     });
   }
   async connectWallet() {
     try {
       await window.ethereum.enable();
-      this.fetchDetails();
-
+      this.fetchSession();
     } catch (error) {
-      console.log(error)
-
+      console.log(error);
     }
   }
 }

@@ -1,22 +1,31 @@
 import { Injectable } from "@angular/core";
 import { ethers } from "ethers";
-declare const window: any;
+import Identicon from "identicon.js";
+import { User } from "./interfaces";
 
+declare const window: any;
+const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 @Injectable({
   providedIn: "root"
 })
 export class AppService {
   accounts: string[] = [];
+  currentUser: User = null;
   constructor() { }
-  async getWalletDetails() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+  async getAccounts() {
     this.accounts = await provider.listAccounts();
-    console.log(this.accounts)
-    if (this.accounts?.length > 0) {
-      let balance = await provider.getBalance(this.accounts[0])
-      console.log(balance);
+  }
+  async getBalance(address: string) {
+    let balanceObj = await provider.getBalance(address)
+    return Number(parseFloat(ethers.utils.formatEther(balanceObj)).toFixed(3))
+  }
+  async fetchCurrentUser(address: string) {
+    this.currentUser = {
+      account: address,
+      balance: await this.getBalance(address),
+      identicon: "data:image/png;base64," + new Identicon(this.accounts[0], 30).toString()
     }
-
+    console.log(this.currentUser);
   }
 }

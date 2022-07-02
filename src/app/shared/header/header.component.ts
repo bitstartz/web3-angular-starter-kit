@@ -1,4 +1,6 @@
+import { AppService } from './../../app.service';
 import { Component, EventEmitter, Output } from "@angular/core";
+import { trim } from '../../utils';
 
 @Component({
   selector: "app-header",
@@ -6,10 +8,12 @@ import { Component, EventEmitter, Output } from "@angular/core";
 
 })
 export class HeaderComponent {
-  @Output() connectEvent = new EventEmitter<any>()
-  constructor() { }
+  public trim = trim;
+  @Output() connectEvent = new EventEmitter<any>();
+
+  constructor(public appService: AppService) { }
+
   emitconnectEvent() {
     this.connectEvent.emit();
-
   }
 }
